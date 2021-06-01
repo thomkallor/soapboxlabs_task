@@ -1,13 +1,13 @@
 import csv
 from haversine import haversine
 
-from typing import List, Tuple
+from typing import final, List, Tuple
 
 DataPoint = Tuple[float, float, int]
 Location = Tuple[float, float]
 
 
-class DataProcessor():
+class DataProcessor:
 
     @staticmethod
     def read_and_preprocess(path: str) -> List[DataPoint]:
@@ -39,9 +39,10 @@ class DataProcessor():
             writer.writerows(data)
 
 
-class Journey():
+class Journey:
     """
     Journey represents a list of valid DataPoints
+    Raise error if length is lesser than 2
     """
     _data_points: List[DataPoint]
     _valid_speed_limit: float
@@ -49,9 +50,14 @@ class Journey():
     def __init__(self,
                  data_points: List[DataPoint],
                  valid_speed_limit: int) -> None:
+
+        if(len(data_points) < 2):
+            raise ValueError("Not a valid journey")
+
         self._data_points = data_points
         self._valid_speed_limit = self.convert_to_km_per_sec(valid_speed_limit)
 
+    @final
     def convert_to_km_per_sec(self, speed):
         """
         Convert kmph to km/sec
@@ -85,7 +91,7 @@ class Journey():
         Assumes that the first point encountered is always right
         Returns list of valid data points
         """
-        valid_data_points = []
+        valid_data_points = [self._data_points[0]]
         num_rows = len(self._data_points)
 
         # valid_head contains the last valid point
