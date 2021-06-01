@@ -89,6 +89,7 @@ class Journey:
         """
         Check if the speed is under the valid limit
         Assumes that the first point encountered is always right
+        Assumes that there are no duplicate timestamps
         Returns list of valid data points
         """
         valid_data_points = [self._data_points[0]]
