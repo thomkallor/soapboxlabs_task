@@ -32,7 +32,8 @@ class TestJourney:
     """
     Tests for the Journey class
     """
-    journey = Journey(data_points=VALID_ARRAY, valid_speed_limit=200)
+    def setup_class(cls):
+        cls.journey = Journey(data_points=VALID_ARRAY, valid_speed_limit=200)
 
     def test_convert_to_km_per_sec(self):
         """
