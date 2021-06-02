@@ -58,7 +58,7 @@ class Journey:
         self._valid_speed_limit = self.convert_to_km_per_sec(valid_speed_limit)
 
     @final
-    def convert_to_km_per_sec(self, speed):
+    def convert_to_km_per_sec(self, speed) -> float:
         """
         Convert kmph to km/sec
         """
